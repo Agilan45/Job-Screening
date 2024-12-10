@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Anchor Buttons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff6347, #ff1493);
+            /* Tomato to deep pink gradient */
+            color: #ffffff;
+            /* White text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            /* Container width */
+            max-width: 1200px;
+            /* Maximum container width */
+        }
+        
+        .aptitude-box {
+            width: 45%;
+            /* Box takes up 45% of container width */
+            background: rgba(255, 99, 71, 0.8);
+            /* Tomato color background */
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+            margin-right: 5%;
+            /* Space between boxes */
+        }
+        
+        .aptitude-box h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .anchor-button {
+            display: block;
+            margin: 10px 0;
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            /* White text for contrast */
+            background: rgba(255, 255, 255, 0.3);
+            /* Light transparent background */
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .anchor-button:hover {
+            background: rgba(255, 255, 255, 0.5);
+            /* Hover effect */
+            transform: translateY(-3px);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .copy-box {
+            width: 45%;
+            /* Copy box takes up 45% of container width */
+            background: rgba(60, 179, 113, 0.8);
+            /* Medium sea green background */
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .copy-box h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+            /* Dark color for copy box heading */
+        }
+        
+        .take-test-button {
+            display: block;
+            margin-top: 20px;
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .take-test-button:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Side: Aptitude Box -->
+        <div class="aptitude-box">
+            <h1>Aptitude Round <span style="font-size: 14px;">(Every topic with YouTube links)</span></h1>
+            <a href="https://www.youtube.com/watch?v=aT9gStcGvnc" target="_blank" class="anchor-button">Number System</a>
+            <a href="https://www.youtube.com/watch?v=2RZaDcw4H68" target="_blank" class="anchor-button">Percentage</a>
+            <a href="https://www.youtube.com/watch?v=lFHjNbSmsCE" target="_blank" class="anchor-button">Time, Speed and Distance</a>
+            <a href="https://www.youtube.com/watch?v=SGj_uTJ83s0" target="_blank" class="anchor-button">Ratio and Proportion</a>
+            <a href="https://www.youtube.com/watch?v=AcOIUsKhlFM" target="_blank" class="anchor-button">Time and Work</a>
+            <a href="https://www.youtube.com/watch?v=kQcVMyJrFyE" target="_blank" class="anchor-button">Simple and Compound Interest</a>
+            <a href="https://www.youtube.com/watch?v=nbniY4Ro4UY" target="_blank" class="anchor-button">Data Interpretation</a>
+            <a href="https://www.youtube.com/watch?v=TV9rQm15sWo" target="_blank" class="anchor-button">Algebra</a>
+            <a href="https://www.youtube.com/watch?v=ETiRE7N7pEI" target="_blank" class="anchor-button">Permutation and Combination</a>
+            <a href="https://www.youtube.com/watch?v=tJHl73PBnwY" target="_blank" class="anchor-button">Problems on Ages</a>
+            <!-- Take Test Button -->
+            <a href="test2.html" class="take-test-button">Take Test</a>
+        </div>
+
+        <!-- Right Side: Copy of the Aptitude Box -->
+        <div class="copy-box">
+            <h1>Coding Round <span style="font-size: 14px;">(Every topic with YouTube links)</span></h1>
+            <a href="https://www.youtube.com/watch?v=kGxSyqKbzsc" target="_blank" class="anchor-button">JAVA(Easy)</a>
+            <a href="https://www.youtube.com/watch?v=vIXcT4hbR0U" target="_blank" class="anchor-button">JAVA(Medium)</a>
+            <a href="https://www.youtube.com/watch?v=PymbRTMb4hY" target="_blank" class="anchor-button">JAVA(Hard)</a>
+            <a href="https://www.youtube.com/watch?v=m67-bOpOoPU" target="_blank" class="anchor-button">PYTHON(Easy)</a>
+            <a href="https://www.youtube.com/watch?v=HGOBQPFzWKo" target="_blank" class="anchor-button">PYTHON(Medium)</a>
+            <a href="https://www.youtube.com/watch?v=XKHEtdqhLK8" target="_blank" class="anchor-button">PYTHON(Hard)</a>
+            <a href="https://www.youtube.com/watch?v=vl794HKeXug" target="_blank" class="anchor-button">C(Easy)</a>
+            <a href="https://www.youtube.com/watch?v=87SH2Cn0s9A" target="_blank" class="anchor-button">C(Medium)</a>
+            <a href="https://www.youtube.com/watch?v=-TkoO8Z07hI" target="_blank" class="anchor-button">C(Hard)</a>
+            <a href="https://www.youtube.com/watch?v=ZzaPdXTrSb8" target="_blank" class="anchor-button">C++</a>
+            <!-- Take Test Button -->
+            <a href="test22.html" class="take-test-button">Take Test</a>
+        </div>
+    </div>
+</body>
+
+</html>

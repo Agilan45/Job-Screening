@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Quiz - 10 Questions</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        .quiz-container {
+            width: 70%;
+            margin: 50px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        
+        .question {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .options {
+            margin-bottom: 20px;
+        }
+        
+        .options input {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .options label {
+            font-size: 16px;
+            display: block;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        
+        .navigation-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .button {
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .button:hover {
+            background-color: #45a049;
+        }
+        
+        .button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+        
+        .button:active {
+            background-color: #388e3c;
+        }
+        
+        .error {
+            color: red;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .score {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+            color: #333;
+        }
+        
+        .question-number {
+            font-size: 20px;
+            color: #4CAF50;
+            margin-right: 10px;
+        }
+        
+        .question-container {
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: blueviolet;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="quiz-container">
+        <h2>Technical Quiz</h2>
+
+        <div id="question-container">
+            <!-- Question content will be dynamically injected here -->
+        </div>
+
+        <div class="error" id="error-message"></div>
+
+        <div class="navigation-buttons">
+            <button class="button" id="back-btn" onclick="navigate(-1)" disabled>Back</button>
+            <button class="button" id="next-btn" onclick="navigate(1)">Next</button>
+        </div>
+
+        <div class="navigation-buttons">
+            <button class="button" id="submit-btn" onclick="submitQuiz()" disabled>Submit Quiz</button>
+        </div>
+
+        <div id="score" class="score"></div>
+    </div>
+
+    <script>
+        const questions = [
+            // Java-related questions (1 to 10)
+            {
+                question: "1. What is the default value of a variable in Python?",
+                options: ["None", "null", "undefined", "0"],
+                answer: 0
+            }, {
+                question: "2. Which of the following is used to declare a variable in Python?",
+                options: ["var = 10", "int var = 10", "let var = 10", "declare var = 10"],
+                answer: 0
+            }, {
+                question: "3. What is the correct syntax for a function in Python?",
+                options: ["def func():", "function func():", "func() =>", "def func;"],
+                answer: 0
+            }, {
+                question: "4. What is the output of the following code: print(5 + 3 * 2)?",
+                options: ["16", "11", "13", "Error"],
+                answer: 1
+            }, {
+                question: "5. Which keyword is used to define a class in Python?",
+                options: ["class", "def", "structure", "function"],
+                answer: 0
+            }, {
+                question: "6. How do you create a list in Python ? ",
+                options: ["[]", "{}", "()", "<>"],
+                answer: 0
+            }, {
+                question: "7. Which of the following methods is used to add an element to the end of a list in Python?",
+                options: ["append()", "insert()", "add()", "extend()"],
+                answer: 0
+            }, {
+                question: "8. Which operator is used to check equality in Python?",
+                options: ["==", "=", "equals", "==="],
+                answer: 0
+            }, {
+                question: "9. How do you comment a single line in Python?",
+                options: ["// This is a comment", "# This is a comment", "/* This is a comment */", "; This is a comment"],
+                answer: 1
+            }, {
+                question: "10. What does the len() function do in Python?",
+                options: ["Returns the length of an object", "Returns the type of an object", "Creates a new object", "Checks if the object is empty"],
+                answer: 0
+            }, {
+                question: "11. What is the default value of a boolean variable in Java?",
+                options: ["true", "false", "0", "null"],
+                answer: 1
+            }, {
+                question: "12. Which of the following is the correct syntax for declaring a variable in Java?",
+                options: ["int var;", "var int;", "declare int var;", "integer var;"],
+                answer: 0
+            }, {
+                question: "13. Which of the following is NOT a Java primitive data type?",
+                options: ["int", "boolean", "String", "char"],
+                answer: 2
+            }, {
+                question: "14. What is the output of the following code: System.out.println(5 + 10 + 'A');",
+                options: ["15A", "A15", "15", "Syntax Error"],
+                answer: 0
+            }, {
+                question: "15. Which method is used to start a thread in Java?",
+                options: ["start()", "run()", "init()", "begin()"],
+                answer: 0
+            }, {
+                question: "16. What is the result of the expression 10 / 3 in Java?",
+                options: ["3", "3.333", "3.0", "Error"],
+                answer: 0
+            }, {
+                question: "17. Which of the following keywords is used to prevent inheritance in Java?",
+                options: ["final", "static", "super", "private"],
+                answer: 0
+            }, {
+                question: "18. What is the size of a char in Java?",
+                options: ["1 byte", "2 bytes", "4 bytes", "8 bytes"],
+                answer: 1
+            }, {
+                question: "19. Which of the following is used to import a package in Java?",
+                options: ["import package_name;", "import package_name.*;", "use package_name;", "import * package_name;"],
+                answer: 1
+            }, {
+                question: "20. Which of the following is a method that belongs to the String class in Java?",
+                options: ["length()", "size()", "getSize()", "charAt()"],
+                answer: 0
+            }, {
+                question: "21. Which of the following is used to declare a constant in C?",
+                options: ["const", "#define", "static", "Both const and #define"],
+                answer: 3
+            }, {
+                question: "22. What is the output of the following code?\nint a = 5;\nprintf(\"%d\", a++);",
+                options: ["5", "6", "Undefined", "Compilation Error"],
+                answer: 0
+            }, {
+                question: "23. Which of the following is a valid variable name in C?",
+                options: ["int#", "3var", "_value", "var-name"],
+                answer: 2
+            }, {
+                question: "24. What is the size of an int data type in C on a 32-bit system?",
+                options: ["2 bytes", "4 bytes", "8 bytes", "16 bytes"],
+                answer: 1
+            }, {
+                question: "25. What does the 'break' statement do in a loop?",
+                options: [
+                    "Terminates the program",
+                    "Exits the current loop",
+                    "Skips to the next iteration",
+                    "None of the above"
+                ],
+                answer: 1
+            }, {
+                question: "26. What is the purpose of the 'return' statement in C?",
+                options: [
+                    "To terminate the program",
+                    "To return a value to the calling function",
+                    "To declare a function",
+                    "To end a loop"
+                ],
+                answer: 1
+            }, {
+                question: "27. Which library function is used to find the length of a string in C?",
+                options: ["strlen()", "strlength()", "length()", "stringlen()"],
+                answer: 0
+            }, {
+                question: "28. What is the correct syntax to declare a pointer in C?",
+                options: ["int* p;", "int p*;", "pointer int p;", "*int p;"],
+                answer: 0
+            }, {
+                question: "29. What is the result of the expression 5 / 2 in C?",
+                options: ["2", "2.5", "3", "Undefined"],
+                answer: 0
+            }, {
+                question: "30. What is the purpose of the 'continue' statement in C?",
+                options: [
+                    "To terminate the loop",
+                    "To skip the current iteration and move to the next",
+                    "To exit the program",
+                    "To pause the program"
+                ],
+                answer: 1
+            }, {
+                question: "31. What is the correct syntax to include a library in C++?",
+                options: ["#include <library>", "include library;", "import library;", "using library;"],
+                answer: 0
+            }, {
+                question: "32. What is the default return type of the main() function in C++?",
+                options: ["void", "int", "char", "float"],
+                answer: 1
+            }, {
+                question: "33. Which of the following is the correct way to declare a variable in C++?",
+                options: ["int var;", "var int;", "declare int var;", "integer var;"],
+                answer: 0
+            }, {
+                question: "34. What does the 'new' keyword do in C++?",
+                options: [
+                    "Allocates memory dynamically",
+                    "Deallocates memory",
+                    "Creates a new object",
+                    "Initializes a variable"
+                ],
+                answer: 0
+            }, {
+                question: "35. Which of the following operators is used to access a member of a structure or class in C++?",
+                options: [".", "->", "::", "&"],
+                answer: 0
+            }, {
+                question: "36. What is the size of an int in most 64-bit C++ compilers?",
+                options: ["2 bytes", "4 bytes", "8 bytes", "16 bytes"],
+                answer: 1
+            }, {
+                question: "37. How do you write a comment in C++?",
+                options: [
+                    "// This is a comment",
+                    "# This is a comment",
+                    "-- This is a comment",
+                    "<!-- This is a comment -->"
+                ],
+                answer: 0
+            }, {
+                question: "38. What is the purpose of the 'virtual' keyword in C++?",
+                options: [
+                    "To define a method that can be overridden in a derived class",
+                    "To declare a variable",
+                    "To allocate memory dynamically",
+                    "To define a constant value"
+                ],
+                answer: 0
+            }, {
+                question: "39. Which of the following data types can hold a true/false value in C++?",
+                options: ["bool", "int", "char", "float"],
+                answer: 0
+            }, {
+                question: "40. What is the correct way to create an object of a class in C++?",
+                options: [
+                    "ClassName obj;",
+                    "obj = new ClassName();",
+                    "ClassName(obj);",
+                    "create obj of ClassName;"
+                ],
+                answer: 0
+            }
+        ];
+
+
+        let currentPageIndex = 0; // Track the current page
+        let answers = Array(questions.length).fill(null);
+        let answered = Array(questions.length).fill(false); // Array to track answered questions
+
+        // Function to display questions for the current page
+        function displayQuestions() {
+            const questionContainer = document.getElementById('question-container');
+            questionContainer.innerHTML = '';
+
+            const startIndex = currentPageIndex * 10;
+            const endIndex = Math.min(startIndex + 10, questions.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                const questionObj = questions[i];
+                let questionHTML = `
+                    <div class="question-number">${questionObj.question}</div>
+                    <div class="options">
+                `;
+
+                questionObj.options.forEach((option, index) => {
+                    questionHTML += `
+                        <label>
+                            <input type="radio" name="question-${i}" value="${index}" onchange="answerQuestion(${i}, ${index})">
+                            ${option}
+                        </label><br>
+                    `;
+                });
+
+                questionHTML += '</div>';
+                questionContainer.innerHTML += questionHTML;
+            }
+
+            // Update navigation buttons
+            document.getElementById('back-btn').disabled = currentPageIndex === 0;
+            document.getElementById('next-btn').disabled = endIndex >= questions.length;
+
+            // Check if submit button should be enabled
+            checkSubmitButton();
+        }
+
+        // Function to track answers
+        function answerQuestion(questionIndex, selectedAnswer) {
+            answers[questionIndex] = selectedAnswer;
+            answered[questionIndex] = true; // Mark the question as answered
+            checkSubmitButton(); // Check if all questions are answered
+        }
+
+        // Function to check if all questions are answered
+        function checkSubmitButton() {
+            const allAnswered = answered.every((val) => val === true);
+            document.getElementById('submit-btn').disabled = !allAnswered; // Enable/Disable Submit Button
+        }
+
+        // Function to navigate between pages
+        function navigate(direction) {
+            // Save the current answers before navigating
+            const selectedRadio = document.querySelector(`input[name="question-${currentPageIndex * 10}"]:checked`);
+            if (selectedRadio) {
+                const currentQuestionIndex = parseInt(selectedRadio.name.split('-')[1]);
+                answers[currentQuestionIndex] = parseInt(selectedRadio.value);
+                answered[currentQuestionIndex] = true; // Mark as answered
+            }
+
+            currentPageIndex += direction;
+
+            // Prevent going below the first page
+            if (currentPageIndex < 0) {
+                currentPageIndex = 0;
+            }
+
+            // Prevent going beyond the last page
+            if (currentPageIndex * 10 >= questions.length) {
+                currentPageIndex = Math.floor(questions.length / 10) - 1;
+            }
+
+            displayQuestions();
+        }
+
+        // Function to submit the quiz
+        function submitQuiz() {
+            let score = 0;
+            answers.forEach((answer, index) => {
+                if (answer === questions[index].answer) {
+                    score++;
+                }
+            });
+
+            document.getElementById('score').innerText = `Your score is: ${score} out of ${questions.length}`;
+            document.getElementById('submit-btn').disabled = true;
+            document.getElementById('next-btn').disabled = true;
+            document.getElementById('back-btn').disabled = true;
+        }
+
+        // Initial display of questions
+        displayQuestions();
+    </script>
+
+</body>
+
+</html>

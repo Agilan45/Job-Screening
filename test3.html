@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz - 50 Questions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .quiz-container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .options {
+            margin: 20px 0;
+        }
+        
+        .options input {
+            margin-right: 10px;
+        }
+        
+        .navigation-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        
+        .button:disabled {
+            background-color: #ccc;
+        }
+        
+        .error {
+            color: red;
+        }
+        
+        .score {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        
+        h2 {
+            color: blueviolet;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <h2>Aptitude Quiz</h2>
+
+        <div id="question-container">
+            <!-- Question content will be dynamically injected here -->
+        </div>
+
+        <div class="error" id="error-message"></div>
+
+        <div class="navigation-buttons">
+            <button class="button" id="back-btn" onclick="navigate(-1)" disabled>Back</button>
+            <button class="button" id="next-btn" onclick="navigate(1)">Next</button>
+        </div>
+
+        <div class="navigation-buttons">
+            <button class="button" id="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+        </div>
+
+        <div id="score" class="score"></div>
+    </div>
+
+    <script>
+        const questions = [
+            // Number System and Percentage questions (1 to 10)
+            {
+                question: "1. What is the least common multiple (LCM) of 18 and 24?",
+                options: ["36", "72", "108", "144"],
+                answer: 1
+            }, {
+                question: "2. What is the highest common factor (HCF) of 48 and 60?",
+                options: ["12", "15", "18", "24"],
+                answer: 0
+            }, {
+                question: "3. Which of the following is a prime number?",
+                options: ["21", "31", "35", "49"],
+                answer: 1
+            }, {
+                question: "4. What is the remainder when 238 is divided by 5?",
+                options: ["1", "2", "3", "4"],
+                answer: 1
+            }, {
+                question: "5. What is the unit digit of 4^5?",
+                options: ["4", "6", "8", "1"],
+                answer: 2
+            }, {
+                question: "6. A person buys a product for ₹800 and sells it for ₹1000. What is the profit percentage?",
+                options: ["25%", "20%", "12.5%", "15%"],
+                answer: 1
+            }, {
+                question: "7. A shopkeeper offers a 10% discount on an item that costs ₹200. What is the selling price of the item after the discount?",
+                options: ["₹180", "₹190", "₹200", "₹210"],
+                answer: 0
+            }, {
+                question: "8. If the price of a book increases by 25%, and its new price is ₹500, what was the original price of the book?",
+                options: ["₹400", "₹350", "₹375", "₹450"],
+                answer: 0
+            }, {
+                question: "9. The population of a town increases by 10% each year. If the population is 2000, what will it be after 2 years?",
+                options: ["2200", "2400", "2420", "2100"],
+                answer: 2
+            }, {
+                question: "10. A number is increased by 20% and then decreased by 20%. What is the net percentage change?",
+                options: ["0%", "4% decrease", "4% increase", "5% decrease"],
+                answer: 1
+            },
+
+            // Time, Speed, and Distance + Ratio and Proportion questions (11 to 20)
+            {
+                question: "11. A car travels 180 km in 3 hours. What is its speed?",
+                options: ["60 km/h", "50 km/h", "70 km/h", "80 km/h"],
+                answer: 0
+            }, {
+                question: "12. Two trains are running in opposite directions at 60 km/h and 80 km/h. What is their relative speed?",
+                options: ["140 km/h", "130 km/h", "150 km/h", "120 km/h"],
+                answer: 0
+            }, {
+                question: "13. A man runs 8 km in 40 minutes. What is his speed in km/h?",
+                options: ["12 km/h", "10 km/h", "15 km/h", "18 km/h"],
+                answer: 0
+            }, {
+                question: "14. A boat can travel downstream at 15 km/h and upstream at 9 km/h. What is the speed of the boat in still water?",
+                options: ["12 km/h", "10 km/h", "14 km/h", "13 km/h"],
+                answer: 0
+            }, {
+                question: "15. The ratio of two numbers is 4:5. If the first number is 32, what is the second number?",
+                options: ["40", "48", "36", "42"],
+                answer: 0
+            }, {
+                question: "16. In a partnership, A and B invest in a ratio of 3:4. If the total profit is ₹1400, how much will A receive?",
+                options: ["₹700", "₹600", "₹750", "₹800"],
+                answer: 0
+            }, {
+                question: "17. The ratio of two numbers is 7:9. If the difference between the two numbers is 14, what is the sum?",
+                options: ["42", "49", "56", "63"],
+                answer: 0
+            }, {
+                question: "18. If 5 men can complete a task in 12 days, how long will it take for 8 men to complete the same task?",
+                options: ["7.5 days", "6 days", "9 days", "10 days"],
+                answer: 1
+            }, {
+                question: "19. If 6 workers can complete a job in 8 days, how many days will it take for 3 workers to complete the same job?",
+                options: ["12 days", "14 days", "16 days", "18 days"],
+                answer: 2
+            }, {
+                question: "20. The ratio of the ages of two persons is 4:5. If the sum of their ages is 72, what is the age of the younger person?",
+                options: ["28", "30", "32", "36"],
+                answer: 0
+            },
+
+            // Time and Work + Simple and Compound Interest questions (21 to 30)
+            {
+                question: "21. If A can do a piece of work in 10 days and B can do the same work in 15 days, how long will it take for both A and B to complete the work together?",
+                options: ["5 days", "6 days", "7 days", "8 days"],
+                answer: 1
+            }, {
+                question: "22. A pipe can fill a tank in 6 hours. Another pipe can empty the tank in 10 hours. If both pipes are opened together, how long will it take to fill the tank?",
+                options: ["10 hours", "12 hours", "15 hours", "20 hours"],
+                answer: 2
+            }, {
+                question: "23. A work is completed by 6 men in 15 days. How many men would be required to complete the same work in 10 days?",
+                options: ["9", "10", "11", "12"],
+                answer: 9
+            }, {
+                question: "24. A man invests ₹5000 at a rate of 5% simple interest per annum. What will be the total amount after 3 years?",
+                options: ["₹5750", "₹5500", "₹6000", "₹6200"],
+                answer: 0
+            }, {
+                question: "25. A sum of ₹2000 is invested at 10% compound interest per annum for 2 years. What is the compound interest earned?",
+                options: ["₹200", "₹210", "₹220", "₹250"],
+                answer: 1
+            }, {
+                question: "26. The simple interest on ₹2000 for 3 years at 5% per annum is?",
+                options: ["₹300", "₹350", "₹250", "₹400"],
+                answer: 0
+            }, {
+                question: "27. A sum of ₹5000 is invested at compound interest at the rate of 10% per annum for 2 years. What is the total amount?",
+                options: ["₹6000", "₹6050", "₹6500", "₹6400"],
+                answer: 1
+            }, {
+                question: "28. A sum of ₹8000 is invested at 12% compound interest for 2 years. What is the compound interest?",
+                options: ["₹2200", "₹2500", "₹2400", "₹2800"],
+                answer: 2
+            }, {
+                question: "29. What will be the simple interest on ₹4000 at 10% per annum for 5 years?",
+                options: ["₹2000", "₹1500", "₹1000", "₹1200"],
+                answer: 0
+            }, {
+                question: "30. A sum of ₹1500 is invested at 8% compound interest per annum for 2 years. What is the amount at the end of 2 years?",
+                options: ["₹1656", "₹1750", "₹1728", "₹1700"],
+                answer: 0
+            },
+
+            // Permutation and Combination + Problem on Ages (31 to 50)
+            {
+                question: "31. In how many ways can 3 men and 2 women be seated in a row?",
+                options: ["60", "120", "240", "300"],
+                answer: 1
+            }, {
+                question: "32. How many 5-digit numbers can be formed using the digits 1, 2, 3, 4, 5 without repetition?",
+                options: ["120", "60", "150", "100"],
+                answer: 0
+            }, {
+                question: "33. How many ways can 5 books be arranged on a shelf?",
+                options: ["120", "60", "180", "240"],
+                answer: 0
+            }, {
+                question: "34. In a group of 10 students, how many ways can a president and a secretary be chosen?",
+                options: ["90", "100", "110", "120"],
+                answer: 0
+            }, {
+                question: "35. A box contains 5 red balls and 7 blue balls. In how many ways can 3 balls be selected?",
+                options: ["35", "60", "70", "80"],
+                answer: 0
+            }, {
+                question: "36. The sum of the present ages of two persons is 60 years. 10 years ago, the ratio of their ages was 5:7. What are their present ages?",
+                options: ["30 and 30", "25 and 35", "20 and 40", "27 and 33"],
+                answer: 3
+            }, {
+                question: "37. The present age of a man is 4 times the present age of his son. After 5 years, the man’s age will be three times the son’s age. What are their present ages?",
+                options: ["30 and 10", "40 and 10", "50 and 20", "60 and 15"],
+                answer: 1
+            }, {
+                question: "38. The sum of the ages of a father and his son is 50 years. 5 years ago, the father’s age was 4 times the son’s age. What is the present age of the son?",
+                options: ["10", "15", "20", "25"],
+                answer: 1
+            }, {
+                question: "39. A father is 40 years older than his son. After 10 years, the father’s age will be twice that of the son. What are their present ages?",
+                options: ["40 and 20", "50 and 30", "60 and 40", "45 and 25"],
+                answer: 0
+            }, {
+                question: "40. The present age of a man is 3 times the present age of his son. After 5 years, the man’s age will be twice the son’s age. What are their present ages?",
+                options: ["30 and 10", "40 and 20", "45 and 15", "50 and 20"],
+                answer: 0
+            }
+        ];
+
+        let currentPageIndex = 0; // Track the current page
+        let answers = Array(questions.length).fill(null);
+        let answered = Array(questions.length).fill(false); // Array to track answered questions
+
+        // Function to display questions for the current page
+        function displayQuestions() {
+            const questionContainer = document.getElementById('question-container');
+            questionContainer.innerHTML = '';
+
+            const startIndex = currentPageIndex * 10;
+            const endIndex = Math.min(startIndex + 10, questions.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                const questionObj = questions[i];
+                let questionHTML = `
+                    <div class="question-number">${questionObj.question}</div>
+                    <div class="options">
+                `;
+
+                questionObj.options.forEach((option, index) => {
+                    questionHTML += `
+                        <label>
+                            <input type="radio" name="question-${i}" value="${index}" onchange="answerQuestion(${i}, ${index})">
+                            ${option}
+                        </label><br>
+                    `;
+                });
+
+                questionHTML += '</div>';
+                questionContainer.innerHTML += questionHTML;
+            }
+
+            // Update navigation buttons
+            document.getElementById('back-btn').disabled = currentPageIndex === 0;
+            document.getElementById('next-btn').disabled = endIndex >= questions.length;
+
+            // Check if submit button should be enabled
+            checkSubmitButton();
+        }
+
+        // Function to track answers
+        function answerQuestion(questionIndex, selectedAnswer) {
+            answers[questionIndex] = selectedAnswer;
+            answered[questionIndex] = true; // Mark the question as answered
+            checkSubmitButton(); // Check if all questions are answered
+        }
+
+        // Function to check if all questions are answered
+        function checkSubmitButton() {
+            const allAnswered = answered.every((val) => val === true);
+            document.getElementById('submit-btn').disabled = !allAnswered; // Enable/Disable Submit Button
+        }
+
+        // Function to navigate between pages
+        function navigate(direction) {
+            // Save the current answers before navigating
+            const selectedRadio = document.querySelector(`input[name="question-${currentPageIndex * 10}"]:checked`);
+            if (selectedRadio) {
+                const currentQuestionIndex = parseInt(selectedRadio.name.split('-')[1]);
+                answers[currentQuestionIndex] = parseInt(selectedRadio.value);
+                answered[currentQuestionIndex] = true; // Mark as answered
+            }
+
+            currentPageIndex += direction;
+
+            // Prevent going below the first page
+            if (currentPageIndex < 0) {
+                currentPageIndex = 0;
+            }
+
+            // Prevent going beyond the last page
+            if (currentPageIndex * 10 >= questions.length) {
+                currentPageIndex = Math.floor(questions.length / 10) - 1;
+            }
+
+            displayQuestions();
+        }
+
+        // Function to submit the quiz
+        function submitQuiz() {
+            let score = 0;
+            answers.forEach((answer, index) => {
+                if (answer === questions[index].answer) {
+                    score++;
+                }
+            });
+
+            document.getElementById('score').innerText = `Your score is: ${score} out of ${questions.length}`;
+            document.getElementById('submit-btn').disabled = true;
+            document.getElementById('next-btn').disabled = true;
+            document.getElementById('back-btn').disabled = true;
+        }
+
+        // Initial display of questions
+        displayQuestions();
+    </script>
+</body>
+
+</html>
